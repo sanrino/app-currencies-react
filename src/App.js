@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container } from "react-bootstrap";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
-function App() {
+import { Post } from "./components/Post";
+import { Card } from "./components/Card";
+import { Main } from "./components/Main";
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Container>
+        <Switch>
+          <Route exact path="/" component={Main}></Route>
+          <Route path="/card" component={Card}></Route>
+          <Route path="/post" component={Post}></Route>
+          <Redirect to="/" />
+        </Switch>
+      </Container>
+    </BrowserRouter>
   );
-}
-
-export default App;
+};
