@@ -1,18 +1,16 @@
 import { Container } from "react-bootstrap";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { CurrencyChanges } from "./components/CurrencyChanges/CurrencyChanges";
 
-import { Post } from "./components/Post";
-import { Card } from "./components/Card";
-import { Main } from "./components/Main";
+import CurrentRates from "./components/CurrentRates/CurrentRates";
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <Container>
+      <Container className="pt-4">
         <Switch>
-          <Route exact path="/" component={Main}></Route>
-          <Route path="/card" component={Card}></Route>
-          <Route path="/post" component={Post}></Route>
+          <Route exact path="/" component={CurrentRates}></Route>
+          <Route path="/changes-currency" component={CurrencyChanges}></Route>
           <Redirect to="/" />
         </Switch>
       </Container>
