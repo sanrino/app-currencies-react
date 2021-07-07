@@ -7,7 +7,7 @@ export const Header = () => {
         <Navbar.Brand href={`/`}>Navbar</Navbar.Brand>
         <Nav>
           <Nav.Link href={`/`}>Курсы валют</Nav.Link>
-          <Nav.Link href={`/changes-currency`}>Сатистика курса валют</Nav.Link>
+          <Nav.Link href={`/changes-currency`}>Статистика курса валют</Nav.Link>
         </Nav>
       </Container>
     </Navbar>
