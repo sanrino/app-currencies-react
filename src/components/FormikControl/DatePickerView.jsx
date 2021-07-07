@@ -1,5 +1,4 @@
 import React from "react";
-import DateView from "react-datepicker";
 import { Field, ErrorMessage } from "formik";
 import { registerLocale } from "react-datepicker";
 
@@ -12,8 +11,7 @@ export const DatePickerView = (props) => {
   registerLocale("ru", ru);
   const { label, name, ...rest } = props;
   return (
-    <div className="form-control">
-      <label htmlFor={name}>{label}</label>
+    <div>
       <Field name={name}>
         {({ form, field }) => {
           const { setFieldValue } = form;
@@ -25,7 +23,9 @@ export const DatePickerView = (props) => {
               {...rest}
               selected={value}
               onChange={(val) => setFieldValue(name, val)}
-              dateFormat="d MMMM, yyyy"
+              dateFormat="P"
+              locale="ru"
+              className="form-control"
             />
           );
         }}

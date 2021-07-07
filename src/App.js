@@ -3,10 +3,12 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { CurrencyChanges } from "./components/CurrencyChanges/CurrencyChanges";
 
 import CurrentRates from "./components/CurrentRates/CurrentRates";
+import { Header } from "./components/Header/Header";
 
 export const App = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Container className="pt-4">
         <Switch>
           <Route exact path="/" component={CurrentRates}></Route>

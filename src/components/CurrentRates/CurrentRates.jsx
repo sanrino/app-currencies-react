@@ -7,15 +7,7 @@ import Table from "react-bootstrap/Table";
 const CurrentRates = () => {
   const dispatch = useDispatch();
 
-  let currencies = useSelector((state) => state.currencies.items);
-
-  currencies = currencies.filter(
-    (currencie) =>
-      currencie.cc !== "XPD" &&
-      currencie.cc !== "XPT" &&
-      currencie.cc !== "XAG" &&
-      currencie.cc !== "XAU"
-  );
+  const currencies = useSelector((state) => state.currencies.items);
 
   useEffect(() => {
     dispatch(getCurrencies());
