@@ -1,4 +1,5 @@
 import axios from "axios";
+import { dateCurrent, formatDate, lastYear } from "../format/format";
 import { setCurrenciesAction } from "../reducers/currenciesReducer";
 import {
   setExchangeRateFromAction,
@@ -6,6 +7,21 @@ import {
   setIsFetchingFrom,
   setIsFetchingTo,
 } from "../reducers/exchangeRateReducer";
+
+//current date - 12 months
+// let dateLastYear = new Date();
+// dateLastYear.setMonth(dateLastYear.getMonth() - 12);
+// dateLastYear = formatDate(dateLastYear)
+
+let dateLastYear = lastYear(new Date());
+let currentDate = dateCurrent(new Date());
+
+
+//current date
+// let currentDate = new Date();
+// currentDate = formatDate(currentDate)
+
+
 
 export const getCurrencies = () => {
   return async (dispatch) => {
@@ -16,7 +32,7 @@ export const getCurrencies = () => {
   };
 };
 
-export const getExchangeRateFrom = (valcode = "USD", date = "20200302") => {
+export const getExchangeRateFrom = (valcode = "USD", date = dateLastYear) => {
   return async (dispatch) => {
     const response = await axios.get(
       `https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valcode}&date=${date}&json`
@@ -26,7 +42,7 @@ export const getExchangeRateFrom = (valcode = "USD", date = "20200302") => {
   };
 };
 
-export const getExchangeRateTo = (valcode = "USD", date = "20210302") => {
+export const getExchangeRateTo = (valcode = "USD", date = currentDate) => {
   return async (dispatch) => {
     const response = await axios.get(
       `https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valcode}&date=${date}&json`

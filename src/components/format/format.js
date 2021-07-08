@@ -9,3 +9,14 @@ export const formatDate = (date) => {
   if (day.length < 2) day = "0" + day;
   return [year, month, day].join("");
 };
+
+export const lastYear = (date) => {
+  let dateLastYear = date;
+  dateLastYear.setMonth(dateLastYear.getMonth() - 12);
+  return dateLastYear = formatDate(dateLastYear)
+}
+
+export const dateCurrent = (date) => {
+  return formatDate(date)
+}
+

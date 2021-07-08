@@ -23,28 +23,23 @@ export const CurrencyChanges = () => {
 
   useEffect(() => {
     dispatch(getCurrencies());
-    dispatch(exchangeRateAction);
   }, []);
 
   const currencies = useSelector((state) => state.currencies.items);
 
-  const exchangeRateFrom = useSelector(
-    (state) => state.exchangeRate.exchangeRateFrom[0]
-  );
-
-  const exchangeRateTo = useSelector(
-    (state) => state.exchangeRate.exchangeRateTo[0]
-  );
-
   const exchangeRateValues = useSelector(
     (state) => state.exchangeRate.exchangeRateItem
   );
+
+  console.log("exchangeRateValues", exchangeRateValues)
 
   const [exchangeRateForm, setExchangeRateForm] = useState(exchangeRateValues);
 
   //console.log("exchangeRateValuesServer", exchangeRateValues);
   // console.log("exchangeRateFrom", exchangeRateFrom);
   // console.log("exchangeRateTo", exchangeRateTo);
+
+
 
   let codeCurrencies = currencies.map((code) => {
     let newData = {
@@ -55,7 +50,7 @@ export const CurrencyChanges = () => {
   });
 
   //current date - 12 months
-  const dateLastYear = new Date();
+  let dateLastYear = new Date();
   dateLastYear.setMonth(dateLastYear.getMonth() - 12);
 
   const initialValues = {
@@ -70,6 +65,14 @@ export const CurrencyChanges = () => {
     currencyCode: yup.string().required("Required"),
   });
 
+  const exchangeRateFrom = useSelector(
+    (state) => state.exchangeRate.exchangeRateFrom[0]
+  );
+
+  const exchangeRateTo = useSelector(
+    (state) => state.exchangeRate.exchangeRateTo[0]
+  );
+
   const onSubmit = (values) => {
     const data = {
       ...values,
@@ -82,14 +85,12 @@ export const CurrencyChanges = () => {
   useEffect(() => {
     dispatch(
       getExchangeRateFrom(
-        exchangeRateForm.currencyCode,
-        exchangeRateForm.startDate
+        exchangeRateForm.currencyCode, exchangeRateForm.startDate
       )
     );
     dispatch(
       getExchangeRateTo(exchangeRateForm.currencyCode, exchangeRateForm.endDate)
     );
-    dispatch(exchangeRateAction(exchangeRateForm));
   }, [exchangeRateForm]);
 
   return (
@@ -133,15 +134,10 @@ export const CurrencyChanges = () => {
           </Formik>
         </Col>
         <Col>
-          <ExchangeRateDetailChart
-            dataValues={exchangeRateValues}
-            dataFrom={exchangeRateFrom}
-            dataTo={exchangeRateTo}
-          />
-          <ExchangeRateDetailTable
-            dataFrom={exchangeRateFrom}
-            dataTo={exchangeRateTo}
-          />
+          {
+            (exchangeRateFrom && exchangeRateTo) && <ExchangeRateDetailChart />
+          }
+          <ExchangeRateDetailTable />
         </Col>
       </Row>
     </>

@@ -7,7 +7,7 @@ const SET_IS_FETCHING_FROM = "SET_IS_FETCHING_FROM";
 const SET_IS_FETCHING_TO = "SET_IS_FETCHING_TO";
 
 //current date - 12 months
-const dateLastYear = new Date();
+let dateLastYear = new Date();
 dateLastYear.setMonth(dateLastYear.getMonth() - 12);
 
 const defaultState = {
@@ -16,7 +16,6 @@ const defaultState = {
     // startDate: formatDate(dateLastYear),
     // endDate: formatDate(new Date()),
   },
-
   exchangeRateFrom: {},
   exchangeRateTo: {},
   isFetchingFrom: true,
@@ -78,7 +77,7 @@ export const setIsFetchingTo = (payload) => ({
 });
 
 //del
-export const exchangeRateAction = (payload) => ({
-  type: EXCHANGE_RATE,
-  payload,
-});
+// export const exchangeRateAction = (payload) => ({
+//   type: EXCHANGE_RATE,
+//   payload,
+// });

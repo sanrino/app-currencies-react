@@ -1,25 +1,35 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
-export const ExchangeRateDetailTable = ({ dataFrom, dataTo }) => {
+export const ExchangeRateDetailTable = () => {
+
+  const exchangeRateFrom = useSelector(
+    (state) => state.exchangeRate.exchangeRateFrom[0]
+  );
+
+  const exchangeRateTo = useSelector(
+    (state) => state.exchangeRate.exchangeRateTo[0]
+  );
+
   return (
     <div>
-      {dataFrom && dataTo && (
+      {exchangeRateFrom && exchangeRateTo && (
         <Table striped bordered hover className="mt-5">
           <thead>
             <tr>
               <th>Название валюты </th>
-              <th>Курс на {dataFrom.exchangedate}</th>
-              <th>Курс на {dataTo.exchangedate}</th>
+              <th>Курс на {exchangeRateFrom.exchangedate}</th>
+              <th>Курс на {exchangeRateTo.exchangedate}</th>
               <th>Прирост валюты</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>{dataFrom.txt}</td>
-              <td>{dataFrom.rate} ₴</td>
-              <td>{dataTo.rate} ₴</td>
-              <td>{Number(dataTo.rate - dataFrom.rate)}</td>
+              <td>{exchangeRateFrom.txt}</td>
+              <td>{exchangeRateFrom.rate} ₴</td>
+              <td>{exchangeRateTo.rate} ₴</td>
+              <td>{Number(exchangeRateTo.rate - exchangeRateFrom.rate)}</td>
             </tr>
           </tbody>
         </Table>
