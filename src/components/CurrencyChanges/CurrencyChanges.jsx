@@ -4,33 +4,47 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCurrencies,
-  getCurrenciesFrom,
-  getCurrenciesTo,
+  getExchangeRateFrom,
+  getExchangeRateTo,
 } from "../actions/currencies";
 import { Formik } from "formik";
 import { FormikControl } from "../FormikControl/FormikControl";
 import { formatDate } from "../format/format";
 import Form from "react-bootstrap/Form";
 import { Button, Col, Row } from "react-bootstrap";
+
+import { ExchangeRateDetailTable } from "../ExchangeRateDetail/ExchangeRateDetailTable";
+import { ExchangeRateDetailChart } from "../ExchangeRateDetail/ExchangeRateDetailChart";
 import { Line } from "react-chartjs-2";
+import { exchangeRateAction } from "../reducers/exchangeRateReducer";
 
 export const CurrencyChanges = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCurrencies());
-  }, []);
-
-  useEffect(() => {
-    chart();
+    dispatch(exchangeRateAction);
   }, []);
 
   const currencies = useSelector((state) => state.currencies.items);
-  const currenciesFrom = useSelector((state) => state.currencies.itemsFrom);
-  const currenciesTo = useSelector((state) => state.currencies.itemsTo);
 
-  // console.log("currenciesFrom", currenciesFrom);
-  // console.log("currenciesTo", currenciesTo);
+  const exchangeRateFrom = useSelector(
+    (state) => state.exchangeRate.exchangeRateFrom[0]
+  );
+
+  const exchangeRateTo = useSelector(
+    (state) => state.exchangeRate.exchangeRateTo[0]
+  );
+
+  const exchangeRateValues = useSelector(
+    (state) => state.exchangeRate.exchangeRateItem
+  );
+
+  const [exchangeRateForm, setExchangeRateForm] = useState(exchangeRateValues);
+
+  //console.log("exchangeRateValuesServer", exchangeRateValues);
+  // console.log("exchangeRateFrom", exchangeRateFrom);
+  // console.log("exchangeRateTo", exchangeRateTo);
 
   let codeCurrencies = currencies.map((code) => {
     let newData = {
@@ -47,20 +61,8 @@ export const CurrencyChanges = () => {
   const initialValues = {
     startDate: dateLastYear,
     endDate: new Date(),
-    currencyCode: "CAD",
+    currencyCode: "USD",
   };
-  const [chartForm, setChartform] = useState({
-    currencyCode: "CAD",
-    startDate: formatDate(dateLastYear),
-    endDate: formatDate(new Date()),
-  });
-
-  useEffect(() => {
-    dispatch(getCurrenciesFrom(chartForm.currencyCode, chartForm.startDate));
-    dispatch(getCurrenciesTo(chartForm.currencyCode, chartForm.endDate));
-  }, [chartForm]);
-
-  const [chartData, setChartData] = useState({});
 
   const validationSchema = yup.object({
     startDate: yup.date().required("Required").nullable(),
@@ -74,22 +76,21 @@ export const CurrencyChanges = () => {
       startDate: formatDate(values.startDate),
       endDate: formatDate(values.endDate),
     };
-    setChartform(data);
+    setExchangeRateForm(data);
   };
 
-  const chart = () => {
-    setChartData({
-      labels: ["пн", "вт", "ср", "чт", "пт"],
-      datasets: [
-        {
-          label: "lorem",
-          data: [32, 45, 12, 76, 69],
-          backgroundColor: "rgba(75,192,192,0.6)",
-          borderWidth: 4,
-        },
-      ],
-    });
-  };
+  useEffect(() => {
+    dispatch(
+      getExchangeRateFrom(
+        exchangeRateForm.currencyCode,
+        exchangeRateForm.startDate
+      )
+    );
+    dispatch(
+      getExchangeRateTo(exchangeRateForm.currencyCode, exchangeRateForm.endDate)
+    );
+    dispatch(exchangeRateAction(exchangeRateForm));
+  }, [exchangeRateForm]);
 
   return (
     <>
@@ -125,14 +126,22 @@ export const CurrencyChanges = () => {
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
-                  Посмотреть график
+                  Отобразить
                 </Button>
               </Form>
             )}
           </Formik>
         </Col>
         <Col>
-          <Line data={chartData} />
+          <ExchangeRateDetailChart
+            dataValues={exchangeRateValues}
+            dataFrom={exchangeRateFrom}
+            dataTo={exchangeRateTo}
+          />
+          <ExchangeRateDetailTable
+            dataFrom={exchangeRateFrom}
+            dataTo={exchangeRateTo}
+          />
         </Col>
       </Row>
     </>

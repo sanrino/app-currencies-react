@@ -1,9 +1,11 @@
 import axios from "axios";
+import { setCurrenciesAction } from "../reducers/currenciesReducer";
 import {
-  setCurrenciesAction,
-  setCurrenciesFromAction,
-  setCurrenciesToAction,
-} from "../reducers/currenciesReducer";
+  setExchangeRateFromAction,
+  setExchangeRateToAction,
+  setIsFetchingFrom,
+  setIsFetchingTo,
+} from "../reducers/exchangeRateReducer";
 
 export const getCurrencies = () => {
   return async (dispatch) => {
@@ -14,20 +16,22 @@ export const getCurrencies = () => {
   };
 };
 
-export const getCurrenciesFrom = (valcode = "AUD", date = "20200302") => {
+export const getExchangeRateFrom = (valcode = "USD", date = "20200302") => {
   return async (dispatch) => {
     const response = await axios.get(
       `https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valcode}&date=${date}&json`
     );
-    dispatch(setCurrenciesFromAction(response.data));
+    dispatch(setExchangeRateFromAction(response.data));
+    dispatch(setIsFetchingFrom(true));
   };
 };
 
-export const getCurrenciesTo = (valcode = "AUD", date = "20210302") => {
+export const getExchangeRateTo = (valcode = "USD", date = "20210302") => {
   return async (dispatch) => {
     const response = await axios.get(
       `https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=${valcode}&date=${date}&json`
     );
-    dispatch(setCurrenciesToAction(response.data));
+    dispatch(setExchangeRateToAction(response.data));
+    dispatch(setIsFetchingTo(true));
   };
 };
