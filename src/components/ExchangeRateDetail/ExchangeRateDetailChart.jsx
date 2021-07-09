@@ -40,6 +40,7 @@ export const ExchangeRateDetailChart = () => {
 
   useEffect(() => {
     chart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exchangeRateFrom, exchangeRateTo]);
 
   return <div>{<Line data={chartData} />}</div>;

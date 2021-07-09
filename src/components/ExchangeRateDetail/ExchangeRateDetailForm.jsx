@@ -18,6 +18,7 @@ export const ExchangeRateDetailForm = () => {
 
   useEffect(() => {
     dispatch(getCurrencies());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const currencies = useSelector((state) => state.currencies.items);
@@ -71,6 +72,7 @@ export const ExchangeRateDetailForm = () => {
     dispatch(
       getExchangeRateTo(exchangeRateForm.currencyCode, exchangeRateForm.endDate)
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exchangeRateForm]);
 
   return (
