@@ -1,14 +1,8 @@
-import { formatDate } from "../format/format";
-
 const EXCHANGE_RATE = "EXCHANGE_RATE";
 const SET_EXCHANGE_RATE_FROM = "SET_EXCHANGE_RATE_FROM";
 const SET_EXCHANGE_RATE_TO = "SET_EXCHANGE_RATE_TO";
 const SET_IS_FETCHING_FROM = "SET_IS_FETCHING_FROM";
 const SET_IS_FETCHING_TO = "SET_IS_FETCHING_TO";
-
-//current date - 12 months
-let dateLastYear = new Date();
-dateLastYear.setMonth(dateLastYear.getMonth() - 12);
 
 const defaultState = {
   exchangeRateItem: {
@@ -75,9 +69,3 @@ export const setIsFetchingTo = (payload) => ({
   type: SET_IS_FETCHING_TO,
   payload,
 });
-
-//del
-// export const exchangeRateAction = (payload) => ({
-//   type: EXCHANGE_RATE,
-//   payload,
-// });

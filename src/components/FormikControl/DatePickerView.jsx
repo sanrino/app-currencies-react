@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export const DatePickerView = (props) => {
   registerLocale("ru", ru);
   const { label, name, ...rest } = props;
-  const date = new Date();
+  const dateNow = new Date();
   return (
     <div>
       <Field name={name}>
@@ -27,7 +27,7 @@ export const DatePickerView = (props) => {
               dateFormat="P"
               locale="ru"
               className="form-control"
-              maxDate={date}
+              maxDate={dateNow}
             />
           );
         }}

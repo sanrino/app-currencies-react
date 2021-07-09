@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
 
 export const Select = (props) => {
-  const { label, name, options, ...rest } = props;
+  const { name, options, ...rest } = props;
   return (
     <>
       <Field

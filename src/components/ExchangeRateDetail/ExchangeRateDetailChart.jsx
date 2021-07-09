@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 
-export const ExchangeRateDetailChart = ({ dataFrom, dataTo }) => {
+export const ExchangeRateDetailChart = () => {
   const exchangeRateFrom = useSelector(
     (state) => state.exchangeRate.exchangeRateFrom[0]
   );
@@ -11,12 +11,16 @@ export const ExchangeRateDetailChart = ({ dataFrom, dataTo }) => {
     (state) => state.exchangeRate.exchangeRateTo[0]
   );
 
-
   let labelsRate = [];
   let labelsDate = [];
+  let labelChart = "";
   if (exchangeRateFrom && exchangeRateTo) {
-    labelsRate = [exchangeRateFrom.rate, exchangeRateTo.rate];
+    labelsRate = [
+      exchangeRateFrom.rate.toFixed(2),
+      exchangeRateTo.rate.toFixed(2),
+    ];
     labelsDate = [exchangeRateFrom.exchangedate, exchangeRateTo.exchangedate];
+    labelChart = exchangeRateFrom.txt;
   }
 
   const [chartData, setChartData] = useState({});
@@ -25,7 +29,7 @@ export const ExchangeRateDetailChart = ({ dataFrom, dataTo }) => {
       labels: labelsDate,
       datasets: [
         {
-          label: "NTCN",
+          label: labelChart,
           data: labelsRate,
           backgroundColor: "rgba(75,192,192,0.6)",
           borderWidth: 4,

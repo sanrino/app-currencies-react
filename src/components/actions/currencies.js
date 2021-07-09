@@ -1,5 +1,5 @@
 import axios from "axios";
-import { dateCurrent, formatDate, lastYear } from "../format/format";
+import { dateCurrent, lastYear } from "../format/format";
 import { setCurrenciesAction } from "../reducers/currenciesReducer";
 import {
   setExchangeRateFromAction,
@@ -8,20 +8,8 @@ import {
   setIsFetchingTo,
 } from "../reducers/exchangeRateReducer";
 
-//current date - 12 months
-// let dateLastYear = new Date();
-// dateLastYear.setMonth(dateLastYear.getMonth() - 12);
-// dateLastYear = formatDate(dateLastYear)
-
 let dateLastYear = lastYear(new Date());
 let currentDate = dateCurrent(new Date());
-
-
-//current date
-// let currentDate = new Date();
-// currentDate = formatDate(currentDate)
-
-
 
 export const getCurrencies = () => {
   return async (dispatch) => {
