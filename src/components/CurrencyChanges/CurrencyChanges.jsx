@@ -19,10 +19,10 @@ export const CurrencyChanges = () => {
       </h2>
 
       <Row>
-        <Col xs="4">
+        <Col md="4">
           <ExchangeRateDetailForm />
         </Col>
-        <Col>
+        <Col md="8">
           {exchangeRateFrom && exchangeRateTo && <ExchangeRateDetailChart />}
           <ExchangeRateDetailTable />
         </Col>
