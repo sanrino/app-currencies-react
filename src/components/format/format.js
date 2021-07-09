@@ -13,10 +13,32 @@ export const formatDate = (date) => {
 export const lastYear = (date) => {
   let dateLastYear = date;
   dateLastYear.setMonth(dateLastYear.getMonth() - 12);
-  return dateLastYear = formatDate(dateLastYear)
-}
+  return (dateLastYear = formatDate(dateLastYear));
+};
 
 export const dateCurrent = (date) => {
-  return formatDate(date)
-}
+  return formatDate(date);
+};
 
+export const reversDate = (date) => {
+  let euroDate = date;
+  euroDate = euroDate.split(".");
+  let usDate = euroDate.reverse().join(",");
+  return usDate;
+};
+
+// Returns an array of dates between the two dates
+export function getDates(startDate, endDate) {
+  const dates = [];
+  let currentDate = startDate;
+  const addDays = function (days) {
+    const date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+  while (currentDate <= endDate) {
+    dates.push(currentDate);
+    currentDate = addDays.call(currentDate, 1);
+  }
+  return dates;
+}

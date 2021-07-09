@@ -4,6 +4,10 @@ const SET_EXCHANGE_RATE_TO = "SET_EXCHANGE_RATE_TO";
 const SET_IS_FETCHING_FROM = "SET_IS_FETCHING_FROM";
 const SET_IS_FETCHING_TO = "SET_IS_FETCHING_TO";
 
+const SET_POINT0_CURRENCY = "SET_POINT0_CURRENCY";
+const SET_POINT1_CURRENCY = "SET_POINT1_CURRENCY";
+const SET_POINT2_CURRENCY = "SET_POINT2_CURRENCY";
+
 const defaultState = {
   exchangeRateItem: {
     // currencyCode: "USD",
@@ -12,6 +16,11 @@ const defaultState = {
   },
   exchangeRateFrom: {},
   exchangeRateTo: {},
+  point0Cyrrency: {},
+  point1Cyrrency: {},
+  point2Cyrrency: {},
+
+  //del
   isFetchingFrom: true,
   isFetchingTo: true,
 };
@@ -45,6 +54,22 @@ export const exchangeRateReducer = (state = defaultState, action) => {
         ...state,
         isFetchingTo: action.payload,
       };
+
+    case SET_POINT0_CURRENCY:
+      return {
+        ...state,
+        point0Cyrrency: action.payload,
+      };
+    case SET_POINT1_CURRENCY:
+      return {
+        ...state,
+        point1Cyrrency: action.payload,
+      };
+    case SET_POINT2_CURRENCY:
+      return {
+        ...state,
+        point2Cyrrency: action.payload,
+      };
     default:
       return state;
   }
@@ -60,11 +85,26 @@ export const setExchangeRateToAction = (payload) => ({
   payload,
 });
 
+export const setPoint0CyrrencyAction = (payload) => ({
+  type: SET_POINT0_CURRENCY,
+  payload,
+});
+export const setPoint1CyrrencyAction = (payload) => ({
+  type: SET_POINT1_CURRENCY,
+  payload,
+});
+export const setPoint2CyrrencyAction = (payload) => ({
+  type: SET_POINT2_CURRENCY,
+  payload,
+});
+
+//dell
 export const setIsFetchingFrom = (payload) => ({
   type: SET_IS_FETCHING_FROM,
   payload,
 });
 
+//dell
 export const setIsFetchingTo = (payload) => ({
   type: SET_IS_FETCHING_TO,
   payload,
