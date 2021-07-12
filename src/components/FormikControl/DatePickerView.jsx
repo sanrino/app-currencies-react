@@ -11,6 +11,7 @@ export const DatePickerView = (props) => {
   registerLocale("ru", ru);
   const { label, name, ...rest } = props;
   const dateNow = new Date();
+  const minDate = new Date(1997, 1, 1);
   return (
     <>
       <Field name={name}>
@@ -28,6 +29,7 @@ export const DatePickerView = (props) => {
               locale="ru"
               className="form-control"
               maxDate={dateNow}
+              minDate={minDate}
               style={{ width: "100%" }}
             />
           );
