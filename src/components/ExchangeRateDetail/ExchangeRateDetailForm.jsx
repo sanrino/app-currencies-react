@@ -1,35 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { setRateFormAction } from "../reducers/exchangeRateReducer";
 import uniqId from "uniqid";
 import * as yup from "yup";
-import {
-  getCurrencies,
-  getExchangeRateFrom,
-  getExchangeRateTo,
-} from "../actions/currencies";
 import { Formik } from "formik";
 import { FormikControl } from "../FormikControl/FormikControl";
-import { formatDate } from "../format/format";
-import Form from "react-bootstrap/Form";
 import { Button, Col, Row } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import { formatDate } from "../format/format";
 
-export const ExchangeRateDetailForm = () => {
+import { date } from "yup";
+
+export const ExchangeRateDetailForm = ({ currenciesData, rateCode }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCurrencies());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const currencies = useSelector((state) => state.currencies.items);
-
-  const exchangeRateValues = useSelector(
-    (state) => state.exchangeRate.exchangeRateItem
-  );
-
-  const [exchangeRateForm, setExchangeRateForm] = useState(exchangeRateValues);
-
-  let codeCurrencies = currencies.map((code) => {
+  let codeCurrencies = currenciesData.map((code) => {
     let newData = {
       id: uniqId(),
       value: code.cc,
@@ -37,43 +22,35 @@ export const ExchangeRateDetailForm = () => {
     return newData;
   });
 
-  //current date - 12 months
+  //current date subtract 12 months
+  // default format date
   let dateLastYear = new Date();
   dateLastYear.setMonth(dateLastYear.getMonth() - 12);
 
   const initialValues = {
     startDate: dateLastYear,
     endDate: new Date(),
-    currencyCode: "USD",
+    currencyCode: rateCode,
   };
 
   const validationSchema = yup.object({
-    startDate: yup.date().required("Required").nullable(),
-    endDate: yup.date().required("Required").nullable(),
+    startDate: date().max(
+      yup.ref("endDate"),
+      "Дата начала не может быть раньше даты окончания"
+    ),
     currencyCode: yup.string().required("Required"),
   });
 
   const onSubmit = (values) => {
-    const data = {
-      ...values,
-      startDate: formatDate(values.startDate),
-      endDate: formatDate(values.endDate),
-    };
-    setExchangeRateForm(data);
+    if (Date.parse(values.endDate) > Date.parse(values.startDate)) {
+      const data = {
+        ...values,
+        startDate: formatDate(values.startDate),
+        endDate: formatDate(values.endDate),
+      };
+      dispatch(setRateFormAction(data));
+    }
   };
-
-  useEffect(() => {
-    dispatch(
-      getExchangeRateFrom(
-        exchangeRateForm.currencyCode,
-        exchangeRateForm.startDate
-      )
-    );
-    dispatch(
-      getExchangeRateTo(exchangeRateForm.currencyCode, exchangeRateForm.endDate)
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [exchangeRateForm]);
 
   return (
     <div>
@@ -100,7 +77,6 @@ export const ExchangeRateDetailForm = () => {
                 className="mb-3"
               />
             </Form.Group>
-
             <Button variant="primary" type="submit">
               Отобразить
             </Button>

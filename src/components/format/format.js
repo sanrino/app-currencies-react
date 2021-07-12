@@ -20,11 +20,26 @@ export const dateCurrent = (date) => {
   return formatDate(date);
 };
 
-export const reversDate = (date) => {
-  let euroDate = date;
-  euroDate = euroDate.split(".");
-  let usDate = euroDate.reverse().join(",");
-  return usDate;
+// export const reversDate = (date) => {
+
+//   let euroDate = date;
+//   euroDate = euroDate.split(".");
+//   let usDate = euroDate.reverse().join(",");
+//   return usDate;
+// };
+
+//returns format yyyy,mm,dd
+
+export const convertDate = (value) => {
+  let date = value;
+  let newFormatDate = [
+    date.slice(0, 4),
+    " ",
+    date.slice(4, 6),
+    " ",
+    date.slice(6, 8),
+  ].join("");
+  return newFormatDate;
 };
 
 // Returns an array of dates between the two dates

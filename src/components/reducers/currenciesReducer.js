@@ -1,7 +1,7 @@
 const SET_CURRENCIES = "SET_CURRENCIES";
 
 const defaultState = {
-  items: [],
+  currencies: [],
 };
 
 export const currenciesReducer = (state = defaultState, action) => {
@@ -9,7 +9,7 @@ export const currenciesReducer = (state = defaultState, action) => {
     case SET_CURRENCIES:
       return {
         ...state,
-        items: action.payload,
+        currencies: action.payload,
       };
     default:
       return state;

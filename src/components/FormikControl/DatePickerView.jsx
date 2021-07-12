@@ -12,7 +12,7 @@ export const DatePickerView = (props) => {
   const { label, name, ...rest } = props;
   const dateNow = new Date();
   return (
-    <div>
+    <>
       <Field name={name}>
         {({ form, field }) => {
           const { setFieldValue } = form;
@@ -28,11 +28,12 @@ export const DatePickerView = (props) => {
               locale="ru"
               className="form-control"
               maxDate={dateNow}
+              style={{ width: "100%" }}
             />
           );
         }}
       </Field>
       <ErrorMessage component={TextError} name={name} />
-    </div>
+    </>
   );
 };

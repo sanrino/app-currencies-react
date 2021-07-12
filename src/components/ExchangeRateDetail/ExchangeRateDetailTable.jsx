@@ -1,41 +1,59 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
 
-export const ExchangeRateDetailTable = () => {
-  const exchangeRateFrom = useSelector(
-    (state) => state.exchangeRate.exchangeRateFrom[0]
-  );
-
-  const exchangeRateTo = useSelector(
-    (state) => state.exchangeRate.exchangeRateTo[0]
-  );
-
+export const ExchangeRateDetailTable = ({ pointsData }) => {
   return (
     <div>
-      {exchangeRateFrom && exchangeRateTo && (
-        <Table striped bordered hover className="mt-5">
-          <thead>
-            <tr>
-              <th>Название валюты </th>
-              <th>Курс на {exchangeRateFrom.exchangedate}</th>
-              <th>Курс на {exchangeRateTo.exchangedate}</th>
-              <th>Прирост валюты</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{exchangeRateFrom.txt}</td>
-              <td>{exchangeRateFrom.rate.toFixed(2)}₴</td>
-              <td>{exchangeRateTo.rate.toFixed(2)}₴</td>
-              <td>
-                {Number(exchangeRateTo.rate - exchangeRateFrom.rate).toFixed(2)}
-                ₴
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-      )}
+      <Table striped bordered hover className="mt-5">
+        <thead>
+          <tr>
+            <th>
+              <small>Название валюты</small>
+            </th>
+            <th>
+              <small>Курс на {pointsData.start.exchangedate}</small>
+            </th>
+            {pointsData.quarte.exchangedate && (
+              <th>
+                <small>Курс на {pointsData.quarte.exchangedate}</small>
+              </th>
+            )}
+            {pointsData.average.exchangedate && (
+              <th>
+                <small>Курс на {pointsData.average.exchangedate}</small>
+              </th>
+            )}
+            {pointsData.preEnd.exchangedate && (
+              <th>
+                <small>Курс на {pointsData.preEnd.exchangedate}</small>
+              </th>
+            )}
+            {pointsData.end.exchangedate && (
+              <th>
+                <small>Курс на {pointsData.end.exchangedate}</small>
+              </th>
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{pointsData.start.cc}</td>
+            <td>{Number(pointsData.start.rate).toFixed(2)} ₴</td>
+            {pointsData.quarte.rate && (
+              <td>{Number(pointsData.quarte.rate).toFixed(2)} ₴</td>
+            )}
+            {pointsData.average.rate && (
+              <td>{Number(pointsData.average.rate).toFixed(2)} ₴</td>
+            )}
+            {pointsData.preEnd.rate && (
+              <td>{Number(pointsData.preEnd.rate).toFixed(2)} ₴</td>
+            )}
+            {pointsData.end.rate && (
+              <td>{Number(pointsData.end.rate).toFixed(2)} ₴</td>
+            )}
+          </tr>
+        </tbody>
+      </Table>
     </div>
   );
 };

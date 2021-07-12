@@ -1,18 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrencies } from "../actions/currencies";
-
+import React from "react";
 import Table from "react-bootstrap/Table";
+import { useSelector } from "react-redux";
 
-const CurrentRates = () => {
-  const dispatch = useDispatch();
-
-  const currencies = useSelector((state) => state.currencies.items);
-
-  useEffect(() => {
-    dispatch(getCurrencies());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+export const ExchangeRates = () => {
+  const currencies = useSelector((state) => state.currencies.currencies);
 
   return (
     <>
@@ -43,5 +34,3 @@ const CurrentRates = () => {
     </>
   );
 };
-
-export default CurrentRates;
