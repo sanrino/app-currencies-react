@@ -35,5 +35,5 @@ export const ExchangeRateDetailChart = ({ pointsData }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointsData]);
 
-  return <div>{<Line data={chartData} />}</div>;
+  return <div>{<Line data={chartData} type="line" />}</div>;
 };

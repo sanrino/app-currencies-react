@@ -42,11 +42,29 @@ export const configData = (
   };
 };
 
+// export const getCurrencies = () => {
+//   return async (dispatch) => {
+//     const response = await axios.get(
+//       "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json"
+//     );
+//     dispatch(setCurrenciesAction(response.data));
+//   };
+// };
+
 export const getCurrencies = () => {
+  const apiUrl =
+    "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
+
   return async (dispatch) => {
-    const response = await axios.get(
-      "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json"
-    );
-    dispatch(setCurrenciesAction(response.data));
+    await axios
+      .get(apiUrl)
+      .then((response) => {
+        // handle success
+        dispatch(setCurrenciesAction(response.data));
+      })
+      .catch((error) => {
+        // handle error
+        console.log(`${error} whilst contacting the quote API.`);
+      });
   };
 };

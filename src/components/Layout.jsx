@@ -18,7 +18,7 @@ export const Layout = () => {
   }, []);
 
   return (
-    <BrowserRouter forceRefresh>
+    <BrowserRouter>
       <Header />
       <Container className="pt-4">
         <Switch>

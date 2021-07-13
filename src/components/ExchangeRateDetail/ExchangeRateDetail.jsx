@@ -65,8 +65,12 @@ export const ExchangeRateDetail = () => {
           />
         </Col>
         <Col lg="9">
-          {points.start && <ExchangeRateDetailChart pointsData={points} />}
-          {points.start && <ExchangeRateDetailTable pointsData={points} />}
+          {!!points.start && (
+            <>
+              <ExchangeRateDetailChart pointsData={points} />
+              <ExchangeRateDetailTable pointsData={points} />
+            </>
+          )}
         </Col>
       </Row>
     </>
