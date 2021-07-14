@@ -1,4 +1,5 @@
 import { dateCurrent, lastYear } from "../format/format";
+
 const RATE_FORM = "RATE_FORM";
 const SET_CONFIG_DATA = "SET_CONFIG_DATA";
 

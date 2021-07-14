@@ -2,6 +2,11 @@ import React from "react";
 import { Table } from "react-bootstrap";
 
 export const ExchangeRateDetailTable = ({ pointsData }) => {
+  const { start, quarte, average, preEnd, end } = pointsData;
+
+  const rounding = (value) => {
+    return Number(value).toFixed(2);
+  };
   return (
     <div>
       <Table striped bordered hover className="mt-5">
@@ -11,46 +16,38 @@ export const ExchangeRateDetailTable = ({ pointsData }) => {
               <small>Название валюты</small>
             </th>
             <th>
-              <small>Курс на {pointsData.start.exchangedate}</small>
+              <small>Курс на {start.exchangedate}</small>
             </th>
-            {pointsData.quarte.exchangedate && (
+            {quarte.exchangedate && (
               <th>
-                <small>Курс на {pointsData.quarte.exchangedate}</small>
+                <small>Курс на {quarte.exchangedate}</small>
               </th>
             )}
-            {pointsData.average.exchangedate && (
+            {average.exchangedate && (
               <th>
-                <small>Курс на {pointsData.average.exchangedate}</small>
+                <small>Курс на {average.exchangedate}</small>
               </th>
             )}
-            {pointsData.preEnd.exchangedate && (
+            {preEnd.exchangedate && (
               <th>
-                <small>Курс на {pointsData.preEnd.exchangedate}</small>
+                <small>Курс на {preEnd.exchangedate}</small>
               </th>
             )}
-            {pointsData.end.exchangedate && (
+            {end.exchangedate && (
               <th>
-                <small>Курс на {pointsData.end.exchangedate}</small>
+                <small>Курс на {end.exchangedate}</small>
               </th>
             )}
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{pointsData.start.cc}</td>
-            <td>{Number(pointsData.start.rate).toFixed(2)} ₴</td>
-            {pointsData.quarte.rate && (
-              <td>{Number(pointsData.quarte.rate).toFixed(2)} ₴</td>
-            )}
-            {pointsData.average.rate && (
-              <td>{Number(pointsData.average.rate).toFixed(2)} ₴</td>
-            )}
-            {pointsData.preEnd.rate && (
-              <td>{Number(pointsData.preEnd.rate).toFixed(2)} ₴</td>
-            )}
-            {pointsData.end.rate && (
-              <td>{Number(pointsData.end.rate).toFixed(2)} ₴</td>
-            )}
+            <td>{start.cc}</td>
+            <td>{rounding(start.rate)} ₴</td>
+            {quarte.rate && <td>{rounding(quarte.rate)} ₴</td>}
+            {average.rate && <td>{rounding(average.rate)} ₴</td>}
+            {preEnd.rate && <td>{rounding(preEnd.rate)} ₴</td>}
+            {end.rate && <td>{rounding(end.rate)} ₴</td>}
           </tr>
         </tbody>
       </Table>

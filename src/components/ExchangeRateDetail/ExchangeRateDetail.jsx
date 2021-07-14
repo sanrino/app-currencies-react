@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "react-bootstrap";
+
 import { useSelector, useDispatch } from "react-redux";
+import { Col, Row } from "react-bootstrap";
+
 import { configData } from "../actions/currenciesAction";
 import { ExchangeRateDetailForm } from "./ExchangeRateDetailForm";
 import { ExchangeRateDetailTable } from "./ExchangeRateDetailTable";

@@ -1,15 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { setRateFormAction } from "../reducers/exchangeRateReducer";
-import uniqId from "uniqid";
-import * as yup from "yup";
-import { Formik } from "formik";
-import { FormikControl } from "../FormikControl/FormikControl";
-import { Button, Col, Row } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import { formatDate } from "../format/format";
 
+import { useDispatch } from "react-redux";
+import { Formik } from "formik";
+import * as yup from "yup";
 import { date } from "yup";
+import uniqId from "uniqid";
+import Form from "react-bootstrap/Form";
+import { Button, Col, Row } from "react-bootstrap";
+
+import { setRateFormAction } from "../reducers/exchangeRateReducer";
+import { FormikControl } from "../FormikControl/FormikControl";
+import { formatDate } from "../format/format";
 
 export const ExchangeRateDetailForm = ({ currenciesData, rateCode }) => {
   const dispatch = useDispatch();

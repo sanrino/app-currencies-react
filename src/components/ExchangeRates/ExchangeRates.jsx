@@ -1,6 +1,8 @@
 import React from "react";
-import Table from "react-bootstrap/Table";
+
 import { useSelector } from "react-redux";
+
+import Table from "react-bootstrap/Table";
 
 export const ExchangeRates = () => {
   const currencies = useSelector((state) => state.currencies.currencies);

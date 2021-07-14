@@ -1,17 +1,22 @@
 import React from "react";
-import { Field, ErrorMessage } from "formik";
-import { registerLocale } from "react-datepicker";
 
-import TextError from "./TextError";
-import DatePicker from "react-datepicker";
+import { Field, ErrorMessage } from "formik";
+import DatePicker, { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import "react-datepicker/dist/react-datepicker.css";
+
+import { TextError } from "./TextError";
 
 export const DatePickerView = (props) => {
   registerLocale("ru", ru);
   const { label, name, ...rest } = props;
   const dateNow = new Date();
   const minDate = new Date(1997, 1, 1);
+
+  const datepickerStyle = {
+    width: "100%",
+  };
+
   return (
     <>
       <Field name={name}>
@@ -30,7 +35,7 @@ export const DatePickerView = (props) => {
               className="form-control"
               maxDate={dateNow}
               minDate={minDate}
-              style={{ width: "100%" }}
+              style={datepickerStyle}
             />
           );
         }}

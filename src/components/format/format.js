@@ -20,16 +20,7 @@ export const dateCurrent = (date) => {
   return formatDate(date);
 };
 
-// export const reversDate = (date) => {
-
-//   let euroDate = date;
-//   euroDate = euroDate.split(".");
-//   let usDate = euroDate.reverse().join(",");
-//   return usDate;
-// };
-
 //returns format yyyy,mm,dd
-
 export const convertDate = (value) => {
   let date = value;
   let newFormatDate = [
