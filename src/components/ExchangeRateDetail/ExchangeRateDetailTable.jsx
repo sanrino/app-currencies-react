@@ -1,53 +1,39 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import uniqId from "uniqid";
 
 export const ExchangeRateDetailTable = ({ pointsData }) => {
-  const { start, quarte, average, preEnd, end } = pointsData;
-
   const rounding = (value) => {
     return Number(value).toFixed(2);
   };
+
   return (
     <div>
-      <Table striped bordered hover className="mt-5">
+      <Table responsive striped bordered hover className="mt-5">
         <thead>
           <tr>
             <th>
               <small>Название валюты</small>
             </th>
-            <th>
-              <small>Курс на {start.exchangedate}</small>
-            </th>
-            {quarte.exchangedate && (
-              <th>
-                <small>Курс на {quarte.exchangedate}</small>
-              </th>
-            )}
-            {average.exchangedate && (
-              <th>
-                <small>Курс на {average.exchangedate}</small>
-              </th>
-            )}
-            {preEnd.exchangedate && (
-              <th>
-                <small>Курс на {preEnd.exchangedate}</small>
-              </th>
-            )}
-            {end.exchangedate && (
-              <th>
-                <small>Курс на {end.exchangedate}</small>
-              </th>
-            )}
+            {pointsData.map(({ exchangedate }) => {
+              return (
+                <th key={uniqId()}>
+                  <small>Курс на {exchangedate}</small>
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{start.cc}</td>
-            <td>{rounding(start.rate)} ₴</td>
-            {quarte.rate && <td>{rounding(quarte.rate)} ₴</td>}
-            {average.rate && <td>{rounding(average.rate)} ₴</td>}
-            {preEnd.rate && <td>{rounding(preEnd.rate)} ₴</td>}
-            {end.rate && <td>{rounding(end.rate)} ₴</td>}
+            <td>{pointsData[0].cc}</td>
+            {pointsData.map(({ rate }) => {
+              return (
+                <td key={uniqId()}>
+                  <small>{`${rounding(rate)} ₴`} </small>
+                </td>
+              );
+            })}
           </tr>
         </tbody>
       </Table>

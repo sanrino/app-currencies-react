@@ -6,12 +6,13 @@ import ru from "date-fns/locale/ru";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { TextError } from "./TextError";
+import { lastMonth } from "../format/format";
 
 export const DatePickerView = (props) => {
   registerLocale("ru", ru);
   const { label, name, ...rest } = props;
   const dateNow = new Date();
-  const minDate = new Date(1997, 1, 1);
+  let minDate = lastMonth(new Date());
 
   const datepickerStyle = {
     width: "100%",

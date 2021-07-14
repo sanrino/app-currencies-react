@@ -10,7 +10,6 @@ import { Button, Col, Row } from "react-bootstrap";
 
 import { setRateFormAction } from "../reducers/exchangeRateReducer";
 import { FormikControl } from "../FormikControl/FormikControl";
-import { formatDate } from "../format/format";
 
 export const ExchangeRateDetailForm = ({ currenciesData, rateCode }) => {
   const dispatch = useDispatch();
@@ -25,11 +24,11 @@ export const ExchangeRateDetailForm = ({ currenciesData, rateCode }) => {
 
   //current date subtract 12 months
   // default format date
-  let dateLastYear = new Date();
-  dateLastYear.setMonth(dateLastYear.getMonth() - 12);
+  let dateLastMonth = new Date();
+  dateLastMonth.setMonth(dateLastMonth.getMonth() - 1);
 
   const initialValues = {
-    startDate: dateLastYear,
+    startDate: dateLastMonth,
     endDate: new Date(),
     currencyCode: rateCode,
   };
@@ -46,8 +45,8 @@ export const ExchangeRateDetailForm = ({ currenciesData, rateCode }) => {
     if (Date.parse(values.endDate) > Date.parse(values.startDate)) {
       const data = {
         ...values,
-        startDate: formatDate(values.startDate),
-        endDate: formatDate(values.endDate),
+        startDate: values.startDate,
+        endDate: values.endDate,
       };
       dispatch(setRateFormAction(data));
     }

@@ -7,7 +7,8 @@ import { configData } from "../actions/currenciesAction";
 import { ExchangeRateDetailForm } from "./ExchangeRateDetailForm";
 import { ExchangeRateDetailTable } from "./ExchangeRateDetailTable";
 import { ExchangeRateDetailChart } from "./ExchangeRateDetailChart";
-import { convertDate, formatDate, getDates } from "../format/format";
+import { getDates } from "../format/format";
+import dayjs from "dayjs";
 
 export const ExchangeRateDetail = () => {
   const dispatch = useDispatch();
@@ -16,47 +17,28 @@ export const ExchangeRateDetail = () => {
   const rateFormData = useSelector((state) => state.exchangeRate.rateForm);
   const points = useSelector((state) => state.exchangeRate.configData);
 
-  //current date - 12 months
-  // default format date
-  let dateLastYear = new Date();
-  dateLastYear.setMonth(dateLastYear.getMonth() - 12);
+  console.log({ rateFormData });
 
   // get array days
-  const datesArray = getDates(
-    new Date(convertDate(rateFormData.startDate)),
-    new Date(convertDate(rateFormData.endDate))
+  const datePeriod = getDates(
+    new Date(rateFormData.startDate),
+    new Date(rateFormData.endDate)
   );
-
-  const quarterArray = Math.floor(
-    (datesArray.length - datesArray.length / 2) / 2
-  );
-
-  const dates = [
-    datesArray[0],
-    datesArray[quarterArray],
-    datesArray.splice(Math.floor((datesArray.length - 1) / 2), 1)[0],
-    datesArray[datesArray.length - 1 - quarterArray],
-    datesArray[datesArray.length - 1],
-  ];
 
   useEffect(() => {
-    dispatch(
-      configData(
-        formatDate(dates[0]),
-        formatDate(dates[1]),
-        formatDate(dates[2]),
-        formatDate(dates[3]),
-        formatDate(dates[4]),
-        rateFormData.currencyCode
-      )
-    );
+    dispatch(configData(datePeriod, rateFormData.currencyCode));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rateFormData]);
 
   return (
     <>
-      <h2 className="pb-4">
-        Официальный курс гривны относительно иностранных валют
+      <h2 className="pb-4 text-center">
+        {`Официальный курс гривны относительно иностранных валют за период ${dayjs(
+          rateFormData.startDate
+        ).format("DD.MM.YYYY")} - ${dayjs(rateFormData.endDate).format(
+          "DD.MM.YYYY"
+        )}
+        `}
       </h2>
 
       <Row>
@@ -67,7 +49,7 @@ export const ExchangeRateDetail = () => {
           />
         </Col>
         <Col lg="9">
-          {!!points.start && (
+          {!!points[0] && (
             <>
               <ExchangeRateDetailChart pointsData={points} />
               <ExchangeRateDetailTable pointsData={points} />

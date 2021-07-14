@@ -5,21 +5,16 @@ import { Line } from "react-chartjs-2";
 export const ExchangeRateDetailChart = ({ pointsData }) => {
   const [chartData, setChartData] = useState({});
 
-  const { start, quarte, average, preEnd, end } = pointsData;
+  const dates = pointsData.map(({ exchangedate }) => exchangedate);
+  const rates = pointsData.map(({ rate }) => rate);
 
   const chart = () => {
     setChartData({
-      labels: [
-        start.exchangedate,
-        quarte.exchangedate,
-        average.exchangedate,
-        preEnd.exchangedate,
-        end.exchangedate,
-      ],
+      labels: dates,
       datasets: [
         {
-          label: [start.txt],
-          data: [start.rate, quarte.rate, average.rate, preEnd.rate, end.rate],
+          label: [pointsData[0].cc],
+          data: rates,
           backgroundColor: "rgba(75,192,192,0.6)",
           borderWidth: 4,
         },

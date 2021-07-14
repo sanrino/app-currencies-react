@@ -1,16 +1,16 @@
-import { dateCurrent, lastYear } from "../format/format";
+import { lastMonth } from "../format/format";
 
 const RATE_FORM = "RATE_FORM";
 const SET_CONFIG_DATA = "SET_CONFIG_DATA";
 
-let dateLastYear = lastYear(new Date());
-let currentDate = dateCurrent(new Date());
+let dateLastMonth = lastMonth(new Date());
+let dateNow = new Date();
 
 const defaultState = {
   rateForm: {
     currencyCode: "USD",
-    startDate: dateLastYear,
-    endDate: currentDate,
+    startDate: dateLastMonth,
+    endDate: dateNow,
   },
   configData: [],
 };
