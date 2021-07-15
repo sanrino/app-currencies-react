@@ -17,9 +17,7 @@ export const ExchangeRateDetail = () => {
   const rateFormData = useSelector((state) => state.exchangeRate.rateForm);
   const points = useSelector((state) => state.exchangeRate.configData);
 
-  console.log({ rateFormData });
-
-  // get array days
+  // get date period
   const datePeriod = getDates(
     new Date(rateFormData.startDate),
     new Date(rateFormData.endDate)

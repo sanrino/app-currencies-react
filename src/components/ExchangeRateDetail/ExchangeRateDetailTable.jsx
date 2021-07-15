@@ -30,7 +30,7 @@ export const ExchangeRateDetailTable = ({ pointsData }) => {
             {pointsData.map(({ rate }) => {
               return (
                 <td key={uniqId()}>
-                  <small>{`${rounding(rate)} ₴`} </small>
+                  <small>{`${rounding(rate)}₴`} </small>
                 </td>
               );
             })}
