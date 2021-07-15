@@ -1,9 +1,9 @@
-import { lastMonth } from "../format/format";
+import dayjs from "dayjs";
 
 const RATE_FORM = "RATE_FORM";
 const SET_CONFIG_DATA = "SET_CONFIG_DATA";
 
-let dateLastMonth = lastMonth(new Date());
+let dateLastMonth = dayjs().subtract(1, "month").toDate();
 let dateNow = new Date();
 
 const defaultState = {

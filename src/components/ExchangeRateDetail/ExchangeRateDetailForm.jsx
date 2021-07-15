@@ -10,6 +10,7 @@ import { Button, Col, Row } from "react-bootstrap";
 
 import { setRateFormAction } from "../reducers/exchangeRateReducer";
 import { FormikControl } from "../FormikControl/FormikControl";
+import dayjs from "dayjs";
 
 export const ExchangeRateDetailForm = ({ currenciesData, rateCode }) => {
   const dispatch = useDispatch();
@@ -24,8 +25,7 @@ export const ExchangeRateDetailForm = ({ currenciesData, rateCode }) => {
 
   //current date subtract 12 months
   // default format date
-  let dateLastMonth = new Date();
-  dateLastMonth.setMonth(dateLastMonth.getMonth() - 1);
+  let dateLastMonth = dayjs().subtract(1, "month").toDate();
 
   const initialValues = {
     startDate: dateLastMonth,

@@ -31,12 +31,11 @@ export const ExchangeRateDetail = () => {
   return (
     <>
       <h2 className="pb-4 text-center">
-        {`Официальный курс гривны относительно иностранных валют за период ${dayjs(
-          rateFormData.startDate
-        ).format("DD.MM.YYYY")} - ${dayjs(rateFormData.endDate).format(
-          "DD.MM.YYYY"
-        )}
-        `}
+        Официальный курс гривны относительно иностранных валют за период <br />
+        {`
+         ${dayjs(rateFormData.startDate).format("DD.MM.YYYY")} - ${dayjs(
+          rateFormData.endDate
+        ).format("DD.MM.YYYY")}`}
       </h2>
 
       <Row>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import uniqId from "uniqid";
 
 import { Line } from "react-chartjs-2";
 
@@ -24,8 +25,11 @@ export const ExchangeRateDetailChart = ({ pointsData }) => {
 
   useEffect(() => {
     chart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointsData]);
 
-  return <div>{<Line data={chartData} type="line" />}</div>;
+  return (
+    <div>
+      {<Line data={chartData} type="line" id={uniqId()} key={uniqId()} />}
+    </div>
+  );
 };

@@ -1,9 +1,3 @@
-export const lastMonth = (date) => {
-  let lastMonth = date;
-  lastMonth.setMonth(lastMonth.getMonth() - 1);
-  return lastMonth;
-};
-
 // Returns an array of dates between the two dates
 export function getDates(startDate, endDate) {
   const dates = [];
