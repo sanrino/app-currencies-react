@@ -52,7 +52,7 @@ export const ExchangeRateDetailChart = ({ pointsData }) => {
     return () => {
       chartInstance.destroy();
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRebuildingCanvas, pointsData]);
 
   return (
